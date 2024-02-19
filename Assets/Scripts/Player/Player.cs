@@ -44,24 +44,64 @@ public class Player : MonoBehaviour
     public float jumpPower = 6.0f;
 
     /// <summary>
-    /// 점프 중인지 아닌지 나타내는 변수
+    /// 공중에 떠 있는지 아닌지 나타내는 프로퍼티
     /// </summary>
-    bool isJumping = false;
+    bool InAir
+    {
+        get => GroundCount < 1;
+    }
+
+    /// <summary>
+    /// 접촉하고 있는 "Groud" 태그 오브젝트의 개수확인 및 설정용 프로퍼티
+    /// </summary>
+    int GroundCount
+    {
+        get => groundCount;
+        set
+        {
+            if (groundCount < 0)    // 0이하면 0에서 설정
+            {
+                groundCount = 0;
+            }
+            groundCount = value;
+            if (groundCount < 0)    // 설정한 값이 0이하면 0
+            {
+                groundCount = 0;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 접촉하고 있는 "Groud" 태그 오브젝트의 개수
+    /// </summary>
+    int groundCount = 0;
 
     /// <summary>
     /// 점프 쿨 타임
     /// </summary>
-    public float jumpCoolTime = 1.2f;
+    public float jumpCoolTime = 5.0f;
 
     /// <summary>
     /// 남아있는 쿨타임
     /// </summary>
     float jumpCoolRemains = -1.0f;
 
+    float JumpCoolRemains
+    {
+        get => jumpCoolRemains;
+        set
+        {
+            jumpCoolRemains = value;
+            onJumpCoolTimeChange?.Invoke(jumpCoolRemains / jumpCoolTime);
+        }
+    }
+
+    public Action<float> onJumpCoolTimeChange;
+
     /// <summary>
     /// 점프가 가능한지 확인하는 프로퍼티(점프중이 아니고 쿨타임이 다 지났다.)
     /// </summary>
-    bool IsJumpAvailable => !isJumping && (jumpCoolRemains < 0.0f);
+    bool IsJumpAvailable => !InAir && (JumpCoolRemains < 0.0f) && isAlive;
 
     /// <summary>
     /// 플레이어의 생존 여부
@@ -125,7 +165,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        jumpCoolRemains -= Time.deltaTime;
+        JumpCoolRemains -= Time.deltaTime;
     }
 
 
@@ -133,7 +173,15 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            isJumping = false;
+            GroundCount++;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            GroundCount--;
         }
     }
 
@@ -178,8 +226,7 @@ public class Player : MonoBehaviour
         if (IsJumpAvailable) // 점프가 가능할 때만 점프
         {
             rigid.AddForce(jumpPower * Vector3.up, ForceMode.Impulse);  // 위쪽으로 jumpPower만큼 힘을 더하기
-            jumpCoolRemains = jumpCoolTime; // 쿨타임 초기화
-            isJumping = true;               // 점프했다고 표시
+            JumpCoolRemains = jumpCoolTime;
         }
     }
 

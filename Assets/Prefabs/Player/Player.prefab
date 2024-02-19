@@ -1094,6 +1094,7 @@ Transform:
   - {fileID: 4679050588668926878}
   - {fileID: 658708813563963415}
   - {fileID: 50255513615904655}
+  - {fileID: 6033951157082968410}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &710124715924693326
@@ -1149,8 +1150,8 @@ Rigidbody:
   m_GameObject: {fileID: 3392437647222393254}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 0.01
+  m_AngularDrag: 0.5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1439,6 +1440,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7861792191701291596}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4778763904438657339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6033951157082968410}
+  m_Layer: 0
+  m_Name: CameraRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6033951157082968410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4778763904438657339}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.86655885, y: -0, z: -0, w: 0.49907508}
+  m_LocalPosition: {x: 0, y: 1.426, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6986781490560624354}
+  m_LocalEulerAnglesHint: {x: 120.12201, y: 0, z: 0}
 --- !u!1 &5040492747325905490
 GameObject:
   m_ObjectHideFlags: 0
