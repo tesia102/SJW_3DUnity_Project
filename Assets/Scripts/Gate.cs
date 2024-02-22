@@ -13,5 +13,7 @@ public class Gate : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+
+
     // https://zheldajdajd.tistory.com/5
 }
