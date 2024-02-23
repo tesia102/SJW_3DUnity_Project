@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -30,6 +31,26 @@ public class Player : MonoBehaviour
     /// 회전 속도
     /// </summary>
     public float rotateSpeed = 180.0f;
+
+    /// <summary>
+    /// 획득한 아이템 갯수
+    /// </summary>
+    public int paperCount = 0;
+
+    int PaperCount
+    {
+        get => paperCount;
+        set
+        {
+            paperCount = value;
+            GateOpen();
+        }
+    }
+
+    /// <summary>
+    /// 문이 열릴만큼 종이를 얻었다고 알리는 델리게이트
+    /// </summary>
+    public Action onGateOpen;
 
     /// <summary>
     /// 애니메이터용 해시값
@@ -112,6 +133,7 @@ public class Player : MonoBehaviour
     /// 플레이어의 사망을 알리는 델리게이트
     /// </summary>
     public Action onDie;
+
 
     private void Awake()
     {
@@ -256,6 +278,14 @@ public class Player : MonoBehaviour
             onDie?.Invoke();
 
             isAlive = false;
+        }
+    }
+
+    public void GateOpen()
+    {
+        if (paperCount > 4)
+        {
+            onGateOpen?.Invoke();   // 문이 열렸다고 알림
         }
     }
 }

@@ -93,6 +93,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9049967943517852610}
   - component: {fileID: 4449008615826547491}
+  - component: {fileID: 4417269098922360929}
+  - component: {fileID: 3357274280064744065}
   m_Layer: 0
   m_Name: Paper
   m_TagString: Untagged
@@ -178,6 +180,39 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &4417269098922360929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782982127753529575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fc6a8fc15dee3947bb8900134a1661d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &3357274280064744065
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782982127753529575}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.25, y: 1.6000001, z: 1.3}
+  m_Center: {x: 0, y: -0.1, z: 0.4}
 --- !u!1 &2647847288409392129
 GameObject:
   m_ObjectHideFlags: 0

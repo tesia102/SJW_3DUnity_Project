@@ -8,12 +8,21 @@ public class Gate : MonoBehaviour
 
     readonly int Open_Hash = Animator.StringToHash("Open");
 
+    Player player;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        Player player = GetComponent<Player>();
     }
 
+    private void Update()
+    {
+        player.onGateOpen = Open;
+    }
 
-
-    // https://zheldajdajd.tistory.com/5
+    private void Open()
+    {
+        animator.SetTrigger(Open_Hash);
+    }
 }
