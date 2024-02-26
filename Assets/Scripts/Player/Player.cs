@@ -37,15 +37,8 @@ public class Player : MonoBehaviour
     /// </summary>
     public int paperCount = 0;
 
-    int PaperCount
-    {
-        get => paperCount;
-        set
-        {
-            paperCount = value;
-            GateOpen();
-        }
-    }
+    public int hitted = 0;
+
 
     /// <summary>
     /// 문이 열릴만큼 종이를 얻었다고 알리는 델리게이트
@@ -176,7 +169,7 @@ public class Player : MonoBehaviour
 
     private void OnUseInput(InputAction.CallbackContext context)
     {
-        animator.SetTrigger(UseHash);
+        //animator.SetTrigger(UseHash);
     }
 
     private void FixedUpdate()
