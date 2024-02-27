@@ -1,28 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Gate : MonoBehaviour
 {
     Animator animator;
 
+    Player player;
+    Enemy enemy;
+
     readonly int Open_Hash = Animator.StringToHash("Open");
 
-    Player player;
+    public Action onClear;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        Player player = GetComponent<Player>();
+        player = FindObjectOfType<Player>();
+        enemy = FindObjectOfType<Enemy>();
     }
 
     private void Update()
     {
-        player.onGateOpen = Open;
+        if(player != null && player.paperCount > 5)
+        {
+            Open();
+        }
     }
 
-    private void Open()
+    public void Open()
     {
         animator.SetTrigger(Open_Hash);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            onClear?.Invoke();
+            enemy.gameObject.SetActive(false);
+        }
     }
 }

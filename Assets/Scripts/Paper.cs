@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class Paper : MonoBehaviour
 {
-    public GameObject gate;
 
-    private void Awake()
-    {
-        //gate = GameObject.FindGameObjectsWithTag("Finish");
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -19,10 +14,6 @@ public class Paper : MonoBehaviour
             player.paperCount++;
             Debug.Log($"{player.paperCount}");
             gameObject.SetActive(false);
-            if ( player.paperCount > 5)
-            {
-
-            }
         }
     }
 }
