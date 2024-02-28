@@ -1183,6 +1183,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 3
   rotateSpeed: 180
+  paperCount: 0
+  hitted: 0
   jumpPower: 5
   jumpCoolTime: 1.2
 --- !u!1 &3481206552755390399

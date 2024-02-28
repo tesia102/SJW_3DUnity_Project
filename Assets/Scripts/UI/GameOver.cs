@@ -36,6 +36,6 @@ public class GameOver : MonoBehaviour
 
     public void StartNewGame()
     {
-        SceneManager.LoadScene("02_Test_Map");
+        SceneManager.LoadScene("Main");
     }
 }

@@ -37,7 +37,7 @@ public class Gate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.CompareTag("Player"))
         {
             onClear?.Invoke();
             enemy.gameObject.SetActive(false);

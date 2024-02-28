@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class Enemy : MonoBehaviour
 {
     public Transform target;
@@ -33,7 +34,7 @@ public class Enemy : MonoBehaviour
             Debug.Log($"¸ÂÀº È½¼ö : {player.hitted}");
             capsuleCollider.isTrigger = false;
             nav.speed = 0.0f;
-            StartCoroutine(hitAndStop());
+            StartCoroutine(HitAndStop());
 
             if (player.hitted > 2) 
             { 
@@ -44,10 +45,10 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    IEnumerator hitAndStop()
+    IEnumerator HitAndStop()
     {
         yield return new WaitForSeconds(10.0f);
         capsuleCollider.isTrigger = true;
-        nav.speed = 2.0f;
+        nav.speed = 2.5f;
     }
 }

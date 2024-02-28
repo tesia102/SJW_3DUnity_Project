@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,6 +12,7 @@ public class Player : MonoBehaviour
     PlayerInputActions inputActions;
     Rigidbody rigid;
     Animator animator;
+    TextMeshProUGUI text;
 
     /// <summary>
     /// 이동 방향(1 : 전진, -1 : 후진, 0 : 정지)
@@ -20,7 +22,9 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 이동 속도
     /// </summary>
-    public float moveSpeed = 5.0f;
+    public float moveSpeed = 3.0f;
+
+    public float runSpeed = 6.0f;
 
     /// <summary>
     /// 회전방향(1 : 우회전, -1 : 좌회전, 0 : 정지)
@@ -49,7 +53,6 @@ public class Player : MonoBehaviour
     /// 애니메이터용 해시값
     /// </summary>
     readonly int IsMoveHash = Animator.StringToHash("IsMove");
-    readonly int UseHash = Animator.StringToHash("Use");
     readonly int DieHash = Animator.StringToHash("Die");
 
     /// <summary>
@@ -117,6 +120,8 @@ public class Player : MonoBehaviour
     /// </summary>
     bool IsJumpAvailable => !InAir && (JumpCoolRemains < 0.0f) && isAlive;
 
+    bool isSprintAvailable = true;
+
     /// <summary>
     /// 플레이어의 생존 여부
     /// </summary>
@@ -135,6 +140,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
+
         //ItemUseChecker checker = GetComponentInChildren<ItemUseChecker>();
         //checker.onItemUse += (interacable) => interacable.Use();
     }
@@ -145,12 +151,12 @@ public class Player : MonoBehaviour
         inputActions.Player.Move.performed += OnMoveInput;
         inputActions.Player.Move.canceled += OnMoveInput;
         inputActions.Player.Jump.performed += OnJumpInput;
-        inputActions.Player.Use.performed += OnUseInput;
+        inputActions.Player.Sprint.performed += OnSprintInput;
     }
 
     private void OnDisable()
     {
-        inputActions.Player.Use.performed -= OnUseInput;
+        inputActions.Player.Sprint.performed -= OnSprintInput;
         inputActions.Player.Jump.performed -= OnJumpInput;
         inputActions.Player.Move.canceled -= OnMoveInput;
         inputActions.Player.Move.performed -= OnMoveInput;
@@ -167,9 +173,12 @@ public class Player : MonoBehaviour
         Jump();
     }
 
-    private void OnUseInput(InputAction.CallbackContext context)
+    private void OnSprintInput(InputAction.CallbackContext _)
     {
-        //animator.SetTrigger(UseHash);
+        if(isSprintAvailable == true)
+        {
+            StartCoroutine(SprintDuration());
+        }
     }
 
     private void FixedUpdate()
@@ -181,6 +190,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         JumpCoolRemains -= Time.deltaTime;
+    }
+
+    private void Start()
+    {
+        
     }
 
 
@@ -198,6 +212,19 @@ public class Player : MonoBehaviour
         {
             GroundCount--;
         }
+    }
+
+    /// <summary>
+    /// 달리고 기다린 뒤 속도 복구하는 코루틴
+    /// </summary>
+    IEnumerator SprintDuration()
+    {
+        isSprintAvailable = false;
+        moveSpeed = runSpeed;
+        yield return new WaitForSeconds(3.5f);
+        moveSpeed = 3.0f;
+        yield return new WaitForSeconds(4.5f);
+        isSprintAvailable = true;
     }
 
     /// <summary>
