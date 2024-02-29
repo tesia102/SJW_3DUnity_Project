@@ -53,6 +53,6 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(10.0f);
         capsuleCollider.isTrigger = true;
-        nav.speed = 2.5f + (0.3f * player1.paperCount);
+        nav.speed = 2.5f + (0.4f * player1.paperCount);
     }
 }

@@ -24,15 +24,15 @@ public class Gate : MonoBehaviour
 
     private void Update()
     {
-        if(player != null && player.paperCount > 5)
-        {
-            Open();
-        }
+        Open();
     }
 
     public void Open()
     {
-        animator.SetTrigger(Open_Hash);
+        if (player != null && player.paperCount > 4)
+        {
+            animator.SetTrigger(Open_Hash);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
