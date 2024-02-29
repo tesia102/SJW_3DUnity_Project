@@ -7,15 +7,22 @@ public class OpenInfo : MonoBehaviour
 {
     public TextMeshProUGUI gateOpen;
     public TextMeshProUGUI run;
-
-    private void Update()
+    Player player;
+    private void Awake()
     {
-        FindObjectOfType<Player>().onGateOpen += OnGateOpen;
+        player = FindObjectOfType<Player>();
+        gateOpen = GetComponent<TextMeshProUGUI>();
+        run = GetComponent<TextMeshProUGUI>();
+    }
+
+    private void Start()
+    {
+        player.onGateOpen += OnGateOpen;
     }
 
     void OnGateOpen()
     {
-        gateOpen.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-        run.color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+        gateOpen.gameObject.SetActive(true);
+        run.gameObject.SetActive(true);
     }
 }
