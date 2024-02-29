@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     PlayerInputActions inputActions;
     Rigidbody rigid;
     Animator animator;
-    TextMeshProUGUI text;
+    public TextMeshProUGUI text;
 
     /// <summary>
     /// 이동 방향(1 : 전진, -1 : 후진, 0 : 정지)
@@ -37,10 +37,13 @@ public class Player : MonoBehaviour
     public float rotateSpeed = 180.0f;
 
     /// <summary>
-    /// 획득한 아이템 갯수
+    /// 획득한 아이템 갯수(5가되면 클리어조건 달성)
     /// </summary>
     public int paperCount = 0;
 
+    /// <summary>
+    /// 맞은 횟수(3이되면 사망)
+    /// </summary>
     public int hitted = 0;
 
 
@@ -139,7 +142,7 @@ public class Player : MonoBehaviour
         inputActions = new();
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-
+        text = GetComponent<TextMeshProUGUI>();
 
         //ItemUseChecker checker = GetComponentInChildren<ItemUseChecker>();
         //checker.onItemUse += (interacable) => interacable.Use();
@@ -181,6 +184,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        SetText();
+    }
+
     private void FixedUpdate()
     {
         Move();
@@ -190,13 +198,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         JumpCoolRemains -= Time.deltaTime;
+        SetText();
     }
-
-    private void Start()
-    {
-        
-    }
-
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -225,6 +228,14 @@ public class Player : MonoBehaviour
         moveSpeed = 3.0f;
         yield return new WaitForSeconds(4.5f);
         isSprintAvailable = true;
+    }
+
+    public void SetText()
+    {
+        if(text != null)
+        {
+            text.text = $"Paper {paperCount} / 5\nLife : {3-hitted}";
+        }
     }
 
     /// <summary>

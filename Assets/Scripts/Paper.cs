@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Paper : MonoBehaviour
 {
+    GameController gameController;
+
+    private void Awake()
+    {
+        gameController = FindObjectOfType<GameController>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -12,7 +18,7 @@ public class Paper : MonoBehaviour
             Player player = other.GetComponent<Player>();
 
             player.paperCount++;
-            Debug.Log($"{player.paperCount}");
+            gameController.SetText();
             gameObject.SetActive(false);
         }
     }

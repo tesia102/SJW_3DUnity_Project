@@ -10,12 +10,15 @@ public class Enemy : MonoBehaviour
 
     NavMeshAgent nav;
     CapsuleCollider capsuleCollider;
+    GameController gameController;
+    Player player1;
 
     private void Awake()
     {
         nav = GetComponent<NavMeshAgent>();
         capsuleCollider = GetComponent<CapsuleCollider>();
-
+        gameController = FindObjectOfType<GameController>();
+        player1 = FindObjectOfType<Player>();
     }
 
     private void Update()
@@ -31,7 +34,8 @@ public class Enemy : MonoBehaviour
             Player player = other.GetComponent<Player>();
 
             player.hitted++;
-            Debug.Log($"¸ÂÀº È½¼ö : {player.hitted}");
+            gameController.SetText();
+            //Debug.Log($"¸ÂÀº È½¼ö : {player.hitted}");
             capsuleCollider.isTrigger = false;
             nav.speed = 0.0f;
             StartCoroutine(HitAndStop());
@@ -49,6 +53,6 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(10.0f);
         capsuleCollider.isTrigger = true;
-        nav.speed = 2.5f;
+        nav.speed = 2.5f + (0.3f * player1.paperCount);
     }
 }

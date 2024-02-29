@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class GameOver : MonoBehaviour
 {
     public Image fadePlane;
     public GameObject gameOverUI;
+
 
     private void Start()
     {
@@ -36,6 +38,6 @@ public class GameOver : MonoBehaviour
 
     public void StartNewGame()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Title");
     }
 }
