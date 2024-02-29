@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
 {
     public Transform target;
 
-    NavMeshAgent nav;
+    public NavMeshAgent nav;
     CapsuleCollider capsuleCollider;
     GameController gameController;
     Player player1;
